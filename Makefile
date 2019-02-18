@@ -1,14 +1,16 @@
-SOURCES=vm.c vm_menu.c vm_options.c vm_stock.c vm_coin.c utility.c
-HEADERS=vm.h vm_menu.h vm_options.h vm_stock.h vm_coin.h utility.h vm_system.h
-PROGRAM=vm
-DEBUG=-g
-FLAGS=-ansi -pedantic -Wall $(DEBUG)
+CC = gcc
 
-all:
-	gcc $(FLAGS) -o $(PROGRAM) $(SOURCES)
+CFLAGS = -Wall -ansi
+INCLUDES = -I./src/
+LFLAGS = -L/usr/include/
+SRCS = src/*.c
+MAIN = bin/VM
+
+all: $(MAIN)
+	@echo $(MAIN) has compiled successfully
+
+$(MAIN): $(SRCS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(SRCS) $(LFLAGS)
 
 clean:
-	rm $(PROGRAM)
-
-archive:
-	zip $(USER)-a2 $(SOURCES) $(HEADERS) Makefile
+	$(RM) $(MAIN)
